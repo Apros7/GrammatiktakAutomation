@@ -46,4 +46,4 @@ def load_and_save_data():
         pickle.dump(data, file)
     return data
 
-backend_complexity_script = Script("Monday", "Backend_Complexity", make_plot)
+backend_complexity_script = Script("Sunday", "Backend_Complexity", make_plot)

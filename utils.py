@@ -1,4 +1,6 @@
 import datetime
+import sys
+import time
 
 class Script:
     def __init__(self, day_to_run, purpose, script_to_run) -> None:
@@ -23,3 +25,13 @@ class Script:
 
 def divider(): print(f"{'=' * 40}")
 def tiny_divider(): print(f"{'-' * 40}")
+
+def countdown_timer(seconds):
+    #Turns into a divider after 'seconds' seconds
+    for i in range(seconds, -1, -1):
+        if i == 0:
+            sys.stdout.write("\r" + '=' * 40 + "\n")
+        else:
+            sys.stdout.write(f"\rRunning scripts in: {i}")
+        sys.stdout.flush()
+        time.sleep(1)

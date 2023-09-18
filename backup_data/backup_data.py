@@ -11,4 +11,4 @@ from utils import Script
 def backup_data():
     print("Backing up data")
 
-backup_script = Script("Sunday", "Backup Data", backup_data)
+backup_script = Script(3, "Backup Data", backup_data)

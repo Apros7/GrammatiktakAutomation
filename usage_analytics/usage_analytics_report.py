@@ -25,4 +25,4 @@ def user_input_timeout(prompt, timeout):
         return None
     
 
-usage_script = Script("Sunday", "Usage Analytics Report", get_report)
+usage_script = Script(3, "Usage Analytics Report", get_report)

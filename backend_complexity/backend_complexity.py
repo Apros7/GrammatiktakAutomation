@@ -31,6 +31,7 @@ def make_plot():
     plt.xlabel('Date')
     plt.ylabel('Line count')
     plt.grid(axis='y', linestyle='--', alpha=0.6)
+    plt.ylim(min(values) * 0.98, max(values) * 1.02)
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()

@@ -31,8 +31,9 @@ class AutoKing():
         for script in scripts:
             last_date = "" if script.__str__ not in self.data else self.data[script.__str__]
             if not script.should_run(last_date): to_print.append(f"❌ {script.__str__}"); continue
-            print(f"✅ {script.__str__}")
+            to_print.append(f"✅ {script.__str__}")
             self.scripts_to_run.append(script)
+        tiny_divider()
         print(*to_print, sep="\n")
         countdown_timer(5)
     

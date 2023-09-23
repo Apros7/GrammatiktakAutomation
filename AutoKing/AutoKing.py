@@ -20,7 +20,6 @@ class AutoKing():
         divider()
         print("Here is an overview of the scripts I am going to run: ")
         self.data = self.load_data()
-        print(self.data)
         self.get_scripts_to_run()
         self.run_scripts()
         self.save_data()

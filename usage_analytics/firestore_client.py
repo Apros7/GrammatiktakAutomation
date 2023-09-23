@@ -22,6 +22,7 @@ class FirestoreClient():
         self.check_kind(kind)
         query = self.client.query(kind=kind)
         entities = query.fetch()
+        print(f"Number of entities in {kind}: {len(entities)}")
         return entities
 
     def remove_duplicates(self, lst):

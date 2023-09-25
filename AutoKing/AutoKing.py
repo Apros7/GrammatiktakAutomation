@@ -16,7 +16,7 @@ scripts = [
 
 class AutoKing():
     def __init__(self) -> None:
-        print("I am AutoKing 👑, and I run Automation here.\nLet me see what needs to be done 👊\n")
+        print("\nI am AutoKing 👑, and I run Automation here.\nLet me see what needs to be done 👊\n")
         divider()
         print("Here is an overview of the scripts I am going to run: ")
         self.data = self.load_data()
@@ -26,15 +26,11 @@ class AutoKing():
 
     def get_scripts_to_run(self) -> None:
         self.scripts_to_run = []
-        to_print = []
         tiny_divider()
         for script in scripts:
             last_date = "" if script.__str__ not in self.data else self.data[script.__str__]
-            if not script.should_run(last_date): to_print.append(f"❌ {script.__str__}"); continue
-            to_print.append(f"✅ {script.__str__}")
+            if not script.should_run(last_date): continue
             self.scripts_to_run.append(script)
-        tiny_divider()
-        print(*to_print, sep="\n")
         countdown_timer(5)
     
     def run_scripts(self) -> None:

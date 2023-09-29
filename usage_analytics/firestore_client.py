@@ -21,7 +21,7 @@ class FirestoreClient():
     def get_all_text(self, kind):
         self.check_kind(kind)
         query = self.client.query(kind=kind)
-        entities = query.fetch()
+        entities = list(query.fetch())
         print(f"Number of entities in {kind}: {len(entities)}")
         return entities
 
@@ -72,7 +72,7 @@ class FirestoreClient():
         if os.path.exists(filepath):
             earlier_entities = list(json.load(open("datastore/" + kind + ".json")))
             print("Reading file...")
-            all_entities = list(entities) + earlier_entities
+            all_entities = entities + earlier_entities
         else: 
             all_entities = entities
         cleaned_entities = self.clean_entities(all_entities)

@@ -46,12 +46,9 @@ class FirestoreClient():
             cleaned_entity = {}
             for key, value in sorted(entity.items()):
                 true_key = key[:-1] if key[-1].isdigit() else key
-                if not any([true_key == kind for kind in ["feedback", "text", "state", "time"]]):
-                    continue
-                if true_key in cleaned_entity:
-                    cleaned_entity[true_key] += value
-                else:
-                    cleaned_entity[true_key] = value
+                if not any([true_key == kind for kind in ["feedback", "text", "state", "time", "moduleTracking"]]): continue
+                if true_key in cleaned_entity: cleaned_entity[true_key] += value
+                else: cleaned_entity[true_key] = value
             cleaned_entities.append(cleaned_entity)
         no_duplicates = self.remove_duplicates(cleaned_entities)
         no_empty_dicts = self.add_keys_if_does_not_exist(no_duplicates)
@@ -61,6 +58,7 @@ class FirestoreClient():
         for entity in entities:
             if kind == "Backend-alltext":
                 if "time" not in entity: entity["time"] = "unknown"
+                if "moduleTracking" not in entity: entity["moduleTracking"] = {}
                 if "state" in entity: del entity['time']
             elif kind == "Feedback": entity["state"] = "new"
         return entities

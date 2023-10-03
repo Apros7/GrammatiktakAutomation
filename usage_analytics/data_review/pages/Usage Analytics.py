@@ -81,7 +81,7 @@ with col2:
     y_axis_upper_limit_tracking_time = max_tracking_time + max_tracking_time * y_axis_buffer
     y_axis_upper_limit_effectiveness = max_corrections + max_corrections * y_axis_buffer
 
-    fig, ax1 = plt.subplots(figsize=(10, 6))
+    fig, ax1 = plt.subplots(figsize=(10, 6.2))
 
     bar_width = 0.35
     index = np.arange(len(modules))
@@ -97,7 +97,7 @@ with col2:
 
     ax2 = ax1.twinx()
     ax2.bar(index + bar_width, module_tracking_corrections, bar_width, label='Corrections per word', color='r', alpha=0.7)
-    ax2.set_ylabel('Effectiveness', color='r')
+    ax2.set_ylabel('Corrections per word', color='r')
     ax2.tick_params(axis='y', labelcolor='r')
     ax2.set_ylim([0, y_axis_upper_limit_effectiveness])
     ax2.set_xlim([-bar_width, len(modules) - bar_width])

@@ -74,6 +74,10 @@ with col1:
 
 with col2:
 
+    # Maybe would be nice to be able to freeze current state when a big update is due and then be 
+    # able to track from there an onwards to see the difference
+    # some statistics about how many error messages are approved would also be extremely nice!!
+
     max_tracking_time = max(module_tracking_time)
     max_corrections = max(module_tracking_corrections)
     y_axis_buffer = 0.20 
@@ -88,7 +92,7 @@ with col2:
 
     ax1.bar(index, module_tracking_time, bar_width, label='Time taken per word', color='b')
     ax1.set_xlabel('Module')
-    ax1.set_ylabel('Tracking Time', color='b')
+    ax1.set_ylabel('Time per word', color='b')
     ax1.tick_params(axis='y', labelcolor='b')
     ax1.set_xticks(index)
     ax1.set_xticklabels(modules, rotation = 20)
@@ -96,7 +100,7 @@ with col2:
     ax1.set_ylim([0, y_axis_upper_limit_tracking_time])
 
     ax2 = ax1.twinx()
-    ax2.bar(index + bar_width, module_tracking_corrections, bar_width, label='Corrections per word', color='r', alpha=0.7)
+    ax2.bar(index + bar_width, module_tracking_corrections, bar_width, label='No. Corrections per word', color='r', alpha=0.7)
     ax2.set_ylabel('Corrections per word', color='r')
     ax2.tick_params(axis='y', labelcolor='r')
     ax2.set_ylim([0, y_axis_upper_limit_effectiveness])

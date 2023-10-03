@@ -3,9 +3,9 @@ import sys
 from datetime import datetime
 sys.path.append("/Users/lucasvilsen/Desktop/GrammatiktakAutomation")
 
-from usage_analytics.usage_analytics_report import usage_script
-from backup_data.backup_data import backup_script
-from backend_complexity.backend_complexity import backend_complexity_script
+from usage_analytics import usage_script
+from backup_data import backup_script
+from backend_complexity import backend_complexity_script
 from utils import divider, tiny_divider, countdown_timer
 
 scripts = [

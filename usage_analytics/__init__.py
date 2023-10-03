@@ -23,6 +23,3 @@ def user_input_timeout(prompt, timeout):
     else: return None
     
 usage_script = Script(3, "Usage Analytics Report", get_report)
-
-if __name__ == "__main__":
-    usage_script.run()

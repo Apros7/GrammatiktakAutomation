@@ -23,3 +23,6 @@ def user_input_timeout(prompt, timeout):
     else: return None
     
 usage_script = Script(3, "Usage Analytics Report", get_report)
+
+if __name__ == "__main__": 
+    os.system('streamlit run /Users/lucasvilsen/Desktop/GrammatiktakAutomation/usage_analytics/data_review/App.py')

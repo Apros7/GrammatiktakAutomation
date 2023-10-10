@@ -6,6 +6,7 @@ from collections import Counter
 from datetime import datetime, timedelta
 from matplotlib.ticker import MaxNLocator
 import numpy as np
+import re
 
 st.set_page_config(layout="wide")
 
@@ -16,16 +17,28 @@ with open("/Users/lucasvilsen/Desktop/GrammatiktakAutomation/usage_analytics/dat
 
 df_alltext = pd.DataFrame(alltext)
 df_alltext.drop_duplicates(subset='text', inplace=True)
-st.dataframe(df_alltext)
+target_strings = ["Hej, jeg hedder Lucas.", "hvad hedder du", "jeg er sej", "jeg hedder benny", "hej jeg heder lucas"]
+
+fix = lambda x: re.sub(r'[^\w\s]', '', x.lower().replace(" ", ""))
+
+for ts in target_strings:
+    print(fix(ts))
+
+contains_target = df_alltext['text'].apply(lambda x: all([fix(target_string) not in fix(x) for target_string in target_strings]))
+partly_filtered_df = df_alltext[contains_target]
+contains_target_reverse = partly_filtered_df['text'].apply(lambda x: all([fix(x) not in fix(target_string) for target_string in target_strings]))
+filtered_df = partly_filtered_df[contains_target_reverse]
+st.dataframe(filtered_df)
+print(len(df_alltext), len(partly_filtered_df), len(filtered_df))
 
 st.header("Usage Analytics")
-all_times = df_alltext["time"].to_list()
+all_times = filtered_df["time"].to_list()
 counts = Counter([time[:10] for time in all_times if time != "unknown"])
 times = list(counts.keys())
 time_values = list(counts.values())
 
-moduleTrackings = df_alltext["moduleTracking"].to_list()
-values = [x for x in df_alltext["moduleTracking"].to_list() if len(x) > 0]
+moduleTrackings = filtered_df["moduleTracking"].to_list()
+values = [x for x in filtered_df["moduleTracking"].to_list() if len(x) > 0]
 
 print(values)
 

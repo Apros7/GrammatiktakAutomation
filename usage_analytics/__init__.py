@@ -14,6 +14,7 @@ def get_report():
     if user_input_timeout("Press enter to run this command or wait 5 seconds...", 5) is not None:
         print("Starting usage analytics frontend")
         os.system('streamlit run /Users/lucasvilsen/Desktop/GrammatiktakAutomation/usage_analytics/data_review/App.py')
+    return True # script succeeded
 
 
 def user_input_timeout(prompt, timeout):

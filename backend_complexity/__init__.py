@@ -36,6 +36,8 @@ def make_plot():
     plt.tight_layout()
     plt.show()
 
+    return True # script succeeded
+
 def load_and_save_data():
     print("Retrieving and saving data...")
     directory_path = "/Users/lucasvilsen/Desktop/GrammatikTAK/GrammatiktakBackend"
@@ -45,6 +47,6 @@ def load_and_save_data():
     data[datetime.datetime.now().date()] = count_lines_in_directory(directory_path)
     with open(path, "wb") as file:
         pickle.dump(data, file)
-    return data
+    return data 
 
 backend_complexity_script = Script(3, "Backend Complexity", make_plot)

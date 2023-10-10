@@ -35,7 +35,9 @@ class AutoKing():
     
     def run_scripts(self) -> None:
         for script in self.scripts_to_run: 
-            print(f"Running {script.__str__}:"); tiny_divider(); script.run(); self.data[script.__str__] = datetime.now(); divider()
+            print(f"Running {script.__str__}:"); tiny_divider(); script_success = script.run(); 
+            if script_success: self.data[script.__str__] = datetime.now(); 
+            divider()
 
     def load_data(self):
         data = pickle.load(open("/Users/lucasvilsen/Desktop/GrammatiktakAutomation/AutoKing/script_run_dates.pickle", "rb"))

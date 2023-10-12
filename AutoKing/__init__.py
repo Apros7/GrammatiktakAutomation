@@ -1,5 +1,7 @@
+import select
 import pickle
 import sys
+import os
 from datetime import datetime
 sys.path.append("/Users/lucasvilsen/Desktop/GrammatiktakAutomation")
 
@@ -14,6 +16,12 @@ scripts = [
     backend_complexity_script
 ]
 
+def user_input_timeout(prompt, timeout):
+    print(prompt)
+    rlist, _, _ = select.select([sys.stdin], [], [], timeout)
+    if rlist: return input()
+    else: return None
+
 class AutoKing():
     def __init__(self) -> None:
         print("\nI am AutoKing 👑, and I run Automation here.\nLet me see what needs to be done 👊\n")
@@ -22,6 +30,7 @@ class AutoKing():
         self.data = self.load_data()
         self.get_scripts_to_run()
         self.run_scripts()
+        self.post_script_actions()
         self.save_data()
 
     def get_scripts_to_run(self) -> None:
@@ -38,6 +47,13 @@ class AutoKing():
             print(f"Running {script.__str__}:"); tiny_divider(); script_success = script.run(); 
             if script_success: self.data[script.__str__] = datetime.now(); 
             divider()
+
+    def post_script_actions(self):
+        print("To view the report use: 'streamlit run /Users/lucasvilsen/Desktop/GrammatiktakAutomation/usage_analytics/data_review/App.py'")
+        if user_input_timeout("Press enter to run this command or wait 5 seconds...", 5) is not None:
+            print("Starting usage analytics frontend")
+            os.system('streamlit run /Users/lucasvilsen/Desktop/GrammatiktakAutomation/usage_analytics/data_review/App.py')
+        divider()
 
     def load_data(self):
         data = pickle.load(open("/Users/lucasvilsen/Desktop/GrammatiktakAutomation/AutoKing/script_run_dates.pickle", "rb"))

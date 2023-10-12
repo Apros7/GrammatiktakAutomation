@@ -1,3 +1,5 @@
 import os
 
-os.system('streamlit run /Users/lucasvilsen/Desktop/GrammatiktakAutomation/usage_analytics/data_review/App.py')
+path_to_streamlit_app = "/Users/lucasvilsen/Desktop/GrammatiktakAutomation/AutomationPage/App.py"
+
+os.system(f'streamlit run {path_to_streamlit_app}')

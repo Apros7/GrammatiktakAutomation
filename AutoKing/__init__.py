@@ -49,10 +49,11 @@ class AutoKing():
             divider()
 
     def post_script_actions(self):
-        print("To view the report use: 'streamlit run /Users/lucasvilsen/Desktop/GrammatiktakAutomation/usage_analytics/data_review/App.py'")
+        path_to_streamlit_app = "/Users/lucasvilsen/Desktop/GrammatiktakAutomation/AutomationPage/App.py"
+        print(f"To view the report use: 'streamlit run {path_to_streamlit_app}'")
         if user_input_timeout("Press enter to run this command or wait 5 seconds...", 5) is not None:
             print("Starting usage analytics frontend")
-            os.system('streamlit run /Users/lucasvilsen/Desktop/GrammatiktakAutomation/usage_analytics/data_review/App.py')
+            os.system(f'streamlit run {path_to_streamlit_app}')
         divider()
 
     def load_data(self):

@@ -20,15 +20,11 @@ def main():
 
     fix = lambda x: re.sub(r'[^\w\s]', '', x.lower().replace(" ", ""))
 
-    for ts in target_strings:
-        print(fix(ts))
-
     contains_target = df_alltext['text'].apply(lambda x: all([fix(target_string) not in fix(x) for target_string in target_strings]))
     partly_filtered_df = df_alltext[contains_target]
     contains_target_reverse = partly_filtered_df['text'].apply(lambda x: all([fix(x) not in fix(target_string) for target_string in target_strings]))
     filtered_df = partly_filtered_df[contains_target_reverse]
     st.dataframe(filtered_df)
-    print(len(df_alltext), len(partly_filtered_df), len(filtered_df))
 
     st.header("Usage Analytics")
     all_times = filtered_df["time"].to_list()
@@ -36,10 +32,7 @@ def main():
     times = list(counts.keys())
     time_values = list(counts.values())
 
-    moduleTrackings = filtered_df["moduleTracking"].to_list()
     values = [x for x in filtered_df["moduleTracking"].to_list() if len(x) > 0]
-
-    print(values)
 
     sums = {}
     counts = {}

@@ -122,3 +122,5 @@ def main():
         plt.show()
 
         st.pyplot(fig)
+
+main()

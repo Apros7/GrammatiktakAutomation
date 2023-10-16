@@ -17,11 +17,11 @@ def save(path, object):
     return None
 
 # script: 
+def main():
+    projects = load(projects_path)
 
-projects = load(projects_path)
+    st.title("Choose project:")
+    project = st.selectbox("Avaliable projects", projects)
+    view_project(project)
 
-print(projects)
-
-st.title("Choose project:")
-project = st.selectbox("Avaliable projects", projects)
-view_project(project)
+main()

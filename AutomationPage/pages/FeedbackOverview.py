@@ -12,3 +12,5 @@ def main():
     df_feedback = pd.DataFrame(feedback)
 
     st.dataframe(df_feedback)
+
+main()

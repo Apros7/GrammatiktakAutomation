@@ -1,4 +1,6 @@
 import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
 
 projects_path = "/Users/lucasvilsen/Desktop/GrammatiktakAutomation/AutomationPage/pages/data/projects/projects.csv"
 feature_path = "/Users/lucasvilsen/Desktop/GrammatiktakAutomation/AutomationPage/pages/data/projects/features.csv"
@@ -13,14 +15,24 @@ def view_project(project):
 def display(path, project):
     project_index = project.split(":")[0]
     project_dict = sort(load(path))
-    st.write(project_dict[project_index])
+    if project_index in project_dict:
+        data = project_dict[project_index]
+        transposed_list = [[int(row[i]) if i == 1 else row[i] for row in data] for i in range(len(data[0]))]
+
+        fig, ax = plt.subplots()
+        ax.bar(transposed_list[0], transposed_list[1], color='skyblue', edgecolor='black')
+        plt.title('Bar Plot')
+        plt.xlabel('Category')
+        plt.ylabel('Value')
+
+        st.pyplot(fig)
 
 def sort(values):
     project_dict = {}
     for v in values:
-        v, k = v.split(",")
-        if k in project_dict: project_dict[k].append(v)
-        else: project_dict[k] = [v]
+        v1, k, v2 = v.split(",")
+        if k in project_dict: project_dict[k].append([v1, v2])
+        else: project_dict[k] = [[v1, v2]]
     return project_dict
 
 def load(path):
@@ -36,16 +48,17 @@ def add_buttons():
     with col3: hours = st.number_input("Estimated time to completion (hours)?")
     with col4: st.write(""); st.write(""); submit = st.button("Submit")
     if type_to_add != "Project": 
-        associated_project, how_critical = add_extra_buttons(col1, col2, col3)
-    if submit: add_project(type_to_add, name, hours, associated_project, how_critical)
+        associated_project, description, how_critical = add_extra_buttons(col1, col2, col3)
+    if submit: add_project(type_to_add, name, hours, associated_project, description, how_critical)
 
 def add_extra_buttons(col1, col2, col3):
     projects = load(projects_path)
     with col1: associated_project = st.selectbox("Associated project?", projects)
-    with col2: how_critical = st.selectbox("How critical is this to get done?", ["Low", "Medium", "High", "Extremely Critical"])
-    return associated_project, how_critical
+    with col2: description = st.text_input("Description")
+    with col3: how_critical = st.selectbox("How critical is this to get done?", ["Low", "Medium", "High", "Extremely Critical"])
+    return associated_project, description, how_critical
 
-def add_project(type_to_add, name, hours, associated_project, how_critical):
+def add_project(type_to_add, name, hours, associated_project, description, how_critical):
     pass
 
 def register_time():

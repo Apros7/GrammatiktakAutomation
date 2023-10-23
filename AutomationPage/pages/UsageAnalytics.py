@@ -53,31 +53,64 @@ def main():
     date_format = '%Y-%m-%d'
     times = [datetime.strptime(date, date_format) for date in times]
 
-    min_date = min(times)
-    max_date = max(times)
+    # min_date = min(times)
+    # max_date = max(times)
 
-    all_dates = [min_date + timedelta(days=i) for i in range((max_date - min_date).days + 1)]
-    all_dates = [date.strftime(date_format) for date in all_dates]
+    # all_dates = [min_date + timedelta(days=i) for i in range((max_date - min_date).days + 1)]
+    # all_dates = [date.strftime(date_format) for date in all_dates]
 
-    expanded_times = all_dates
-    expanded_values = [time_values[times.index(date)] if date in times else 0 for date in all_dates]
-
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
 
     with col1:
+        months_times = [str(time)[:7] for time in times]
+
+        counts_each_month = {}
+        for i, time in enumerate(months_times):
+            if time not in counts_each_month:
+                counts_each_month[time] = time_values[i]
+            else:
+                counts_each_month[time] += time_values[i]
+
         fig, ax = plt.subplots(figsize=(10, 6))
-        ax.bar(times, time_values)
+        ax.bar(sorted(counts_each_month.keys()), counts_each_month.values())
         ax.yaxis.set_major_locator(MaxNLocator(integer=True))
 
         plt.xticks(rotation=20)
         plt.xlabel('Date')
         plt.ylabel('Occurrences')
-        plt.title("Occurrences over time")
+        plt.title("Occurrences every month")
         plt.tight_layout()
 
         st.pyplot(fig)
 
     with col2:
+
+        counts_last_30_days = {}
+
+        date_format = '%Y-%m-%d'
+        today = datetime.now()
+
+        for i, time in enumerate(times):
+            print(today, time, (today - time))
+            if (today - time).days <= 30:
+                if time not in counts_last_30_days:
+                    counts_last_30_days[time] = time_values[i]
+                else:
+                    counts_last_30_days[time] += time_values[i]
+
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.bar(counts_last_30_days.keys(), counts_last_30_days.values())
+        ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+
+        plt.xticks(rotation=20)
+        plt.xlabel('Date')
+        plt.ylabel('Occurrences')
+        plt.title("Occurrences last 30 days")
+        plt.tight_layout()
+
+        st.pyplot(fig)
+
+    with col3:
 
         # Maybe would be nice to be able to freeze current state when a big update is due and then be 
         # able to track from there an onwards to see the difference

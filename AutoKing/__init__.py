@@ -30,8 +30,8 @@ class AutoKing():
         self.data = self.load_data()
         self.get_scripts_to_run()
         self.run_scripts()
-        self.post_script_actions()
         self.save_data()
+        self.post_script_actions()
 
     def get_scripts_to_run(self) -> None:
         self.scripts_to_run = []
@@ -49,6 +49,8 @@ class AutoKing():
             divider()
 
     def post_script_actions(self):
+        print("I am now done with all scripts :-).")
+        tiny_divider()
         path_to_streamlit_app = "/Users/lucasvilsen/Desktop/GrammatiktakAutomation/AutomationPage/App.py"
         print(f"To view the report use: 'streamlit run {path_to_streamlit_app}'")
         if user_input_timeout("Press enter to run this command or wait 5 seconds...", 5) is not None:
@@ -63,3 +65,4 @@ class AutoKing():
     def save_data(self):
         with open("/Users/lucasvilsen/Desktop/GrammatiktakAutomation/AutoKing/script_run_dates.pickle", "wb") as file:
             pickle.dump(self.data, file)
+        print("Script dates updated.")

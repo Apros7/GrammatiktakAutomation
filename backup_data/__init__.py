@@ -10,7 +10,7 @@ import shutil
 import psutil
 from datetime import datetime
 
-from utils import Script
+from utils import Script, paint
 
 dataset_folder = "/path/to/source/folder"
 model_folder = "/path/to/models"
@@ -42,7 +42,7 @@ def get_space_required():
 
 def backup_data():
     print("Backing up data")
-    print("No paths...")
+    paint(["Failed: ", "No paths..."], ["r", "b"])
 
     return False
 

@@ -17,7 +17,7 @@ class Script:
         return False
 
     def run(self):
-        self.script()
+        return self.script()
 
 length_of_dividers = 60
 
@@ -33,3 +33,16 @@ def countdown_timer(seconds):
             sys.stdout.write(f"\rRunning scripts in: {i}")
         sys.stdout.flush()
         time.sleep(1)
+
+def paint(texts, colors):
+    """
+    colors can be: b (black), r (red) or g (green)
+    """
+    for text, color in zip(texts, colors):
+        if color == "b": print(text, end="")
+        elif color == "r": print(f"\033[91m{text}\033[0m", end="")
+        elif color == "g": print(f"\033[92m{text}\033[0m", end="")
+        else: raise ValueError(f"Color has to be in [b, r, g], but is: {color}")
+    print()
+
+        
